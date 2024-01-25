@@ -2,7 +2,7 @@ name: highlight.exe ci
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
