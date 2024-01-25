@@ -2,7 +2,7 @@ name: highlight.exe ci
 
 on:
   push:
-    branches: [main]
+    tags: ["*"]
 
 jobs:
   build:
@@ -15,12 +15,8 @@ jobs:
         key: npm-${{ hashFiles('**/package.json') }}
     - uses: oven-sh/setup-bun@v1
     - run: bun install
-    - run: make build
-    - name: "Generate tag"
-      run: echo "tag_name=$(./highlight.exe --version)" >> $GITHUB_ENV
-    - run: gzip highlight.exe
+    - run: make gzip
     - name: Publish release
       uses: softprops/action-gh-release@v1
       with:
         files: highlight.exe.gz
-        tag_name: ${{ env.tag_name }}
